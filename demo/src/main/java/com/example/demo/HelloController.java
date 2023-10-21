@@ -1,13 +1,16 @@
 package com.example.demo;
 
+import com.example.demo.model.Item;
+import jakarta.validation.Valid;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.HashMap;
+import java.util.ArrayList;
 
 @RestController
 public class HelloController {
 
-	HashMap <String, String> map = new HashMap<>();
+	ArrayList<Item> items = new ArrayList<Item>();
 
 	@GetMapping("/")
 	public String index() {
@@ -20,14 +23,15 @@ public class HelloController {
 	}
 
 
-	@PostMapping("/greeting/{id}/{age}")
-	public String greetingId(@PathVariable String id,@PathVariable String age) {
-		map.put(id,age);
-		return "Hello by pathvariable "+id;
-	}
 
-	@GetMapping("/allcallers")
-	public String greeting () {
-		return map.toString();
+	@PostMapping("/items")
+	@ResponseStatus(HttpStatus.CREATED)
+	Item createNew(@Valid @RequestBody Item newItem) {
+		items.add(newItem);
+		return newItem;
+	}
+	@GetMapping("/allitems")
+	public String getAllitems () {
+		return items.toString();
 	}
 }
