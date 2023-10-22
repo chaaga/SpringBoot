@@ -3,9 +3,11 @@ package com.example.demo;
 import com.example.demo.model.Item;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+
 
 @RestController
 public class HelloController {
@@ -24,7 +26,11 @@ public class HelloController {
 
 
 
-	@PostMapping("/items")
+	@PostMapping(
+			path="/items",
+			consumes= MediaType.APPLICATION_JSON_VALUE,
+			produces = MediaType.APPLICATION_JSON_VALUE
+	)
 	@ResponseStatus(HttpStatus.CREATED)
 	Item createNew(@Valid @RequestBody Item newItem) {
 		items.add(newItem);

@@ -22,7 +22,7 @@ public class ApplicationExceptionHandler {
             details.add(error.getDefaultMessage());
         }
 
-        return new ResponseEntity("Validation Failed", HttpStatus.BAD_REQUEST);
+        return new ResponseEntity("Validation Failed:"+details.toString(), HttpStatus.BAD_REQUEST);
     }
 }
 
