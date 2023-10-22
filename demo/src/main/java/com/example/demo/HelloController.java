@@ -4,6 +4,7 @@ import com.example.demo.model.Item;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -32,9 +33,9 @@ public class HelloController {
 			produces = MediaType.APPLICATION_JSON_VALUE
 	)
 	@ResponseStatus(HttpStatus.CREATED)
-	Item createNew(@Valid @RequestBody Item newItem) {
+	ResponseEntity<Item> createNew(@Valid @RequestBody Item newItem) {
 		items.add(newItem);
-		return newItem;
+		return new ResponseEntity<>(newItem,HttpStatus.CREATED);
 	}
 	@GetMapping("/allitems")
 	public String getAllitems () {
